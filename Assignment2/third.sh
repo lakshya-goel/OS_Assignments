@@ -1,2 +1,4 @@
-#!/nix/store/w07a7k61dw5gnsyxj3kgcq3shr76jax8-bash-interactive-4.4-p23/bin/bash
-echo hellothird
+#!/bin/bash
+cd
+cd ..
+cd /home/lak/new_kernel/linux-6.0.3
