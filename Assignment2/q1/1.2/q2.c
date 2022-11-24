@@ -41,26 +41,21 @@ void genProcess(char* file_addr, int priority, pid_t * pid, struct timespec s){
         perror("fork error");
         exit(1);
     }
-	*pid = gen_id;
+    *pid = gen_id;
     return;
 }
 
 void waitProcess(struct timespec f, pid_t * processes, char** file,struct timespec tm[],struct timespec s[]){
     pid_t id = waitpid(-1,NULL,0);
-	printf("%ld\n",(long)id);
     clock_gettime(CLOCK_REALTIME,&f);
     for (int i = 0; i < 3; i++)
     {	
-	    printf("%ld\n",(long)processes[i]);
         if(id==processes[i]){
-		printf("match\n");
-			struct timespec gap = tm[i];
+	    struct timespec gap = tm[i];
             sub_timespec(s[i],f,&gap);
             printf("File: %s Time: %ld.%ld\n",file[i],gap.tv_sec,gap.tv_nsec);
-		printf("no error printing\n");
         }
     }
-	printf("no match found\n");
 }
 
 int main(int argc, char const *argv[])
