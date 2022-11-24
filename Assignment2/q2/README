@@ -19,3 +19,10 @@ code used:
 
 The syscall is tested via a test file: test.c
 The code of the tester file is also attached.
+
+The diff is used in to form two patch files( sys_c_file.patch and syscall_tbl.patch )
+Code used:
+# mkdir old_kernel
+# cp -a old_kernel
+# diff -u linux.6.0.3/kernel/sys.c old_kernel/linux.6.0.3/kernel/sys.c >patch1.patch
+# diff -u linux.6.0.3/arch/x86/entry/syscalls/syscall_64.tbl old_kernel/linux.6.0.3/arch/x86/entry/syscalls/syscall_64.tbl >patch2.patch
