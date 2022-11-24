@@ -28,9 +28,9 @@ void sub_timespec(struct timespec t1, struct timespec t2, struct timespec *td)
     }
 }
 
-void genProcess(char* file_addr, int priority, pid_t gen_id, struct timespec s){
+void genProcess(char* file_addr, int priority, pid_t * pid, struct timespec s){
     clock_gettime(CLOCK_REALTIME,&s);
-    gen_id = fork();
+    pid_t gen_id = fork();
     if(gen_id==0){
         setpriority(0,PRIO_PROCESS,priority);
         execlp(file_addr,NULL);
@@ -41,6 +41,7 @@ void genProcess(char* file_addr, int priority, pid_t gen_id, struct timespec s){
         perror("fork error");
         exit(1);
     }
+	*pid = gen_id;
     return;
 }
 
@@ -74,7 +75,7 @@ int main(int argc, char const *argv[])
 	
     for (int i = 0; i < 3; i++)
     {
-        genProcess(file_addresses[i],priorities[i],process_ids[i],s[i]);
+        genProcess(file_addresses[i],priorities[i],&(process_ids[i]),s[i]);
     }
     for (int i = 0; i < 3; i++)
     {
