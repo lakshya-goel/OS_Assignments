@@ -45,15 +45,14 @@ void genProcess(char* file_addr, int priority, pid_t * pid, struct timespec s){
     return;
 }
 
-void waitProcess(struct timespec f, pid_t * processes, char** file,struct timespec tm[],struct timespec s[]){
+void waitProcess(struct timespec f, pid_t * processes, char** file,struct timespec tm,struct timespec s[]){
     pid_t id = waitpid(-1,NULL,0);
     clock_gettime(CLOCK_REALTIME,&f);
     for (int i = 0; i < 3; i++)
     {	
         if(id==processes[i]){
-	    struct timespec gap = tm[i];
-            sub_timespec(s[i],f,&gap);
-            printf("File: %s Time: %ld.%ld\n",file[i],gap.tv_sec,gap.tv_nsec);
+            sub_timespec(s[i],f,&tm);
+            printf("File: %s Time: %ld.%ld\n",file[i],tm.tv_sec,tm.tv_nsec);
         }
     }
 }
@@ -74,7 +73,7 @@ int main(int argc, char const *argv[])
     }
     for (int i = 0; i < 3; i++)
     {
-        waitProcess(f[i],process_ids,file_addresses,tm,s);
+        waitProcess(f[i],process_ids,file_addresses,tm[i],s);
     }
 
     return 0;
