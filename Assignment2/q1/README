@@ -1,0 +1,11 @@
+For ques 1.1, the following details briefly describe the code submitted:
+
+- 'struct timespec' used to get time using 'clock_gettime()'
+- a function 'multiplier()' used to calculate the upper limit of counting ( i.e 2^32)
+- a function 'sub_timespec()' used to get the result of different of two timespec objects
+- three funcs - 'countA' , 'countB' and 'countC' are defined which essentially do the same thing (i.e. counting till 2^32)
+  and set the priority for the thread accessing these functions. Time for counting is recorded and displayed.
+- pthread_setchedparam() is used to set the priorites of thread in each of these count functions
+- before passing an object of struct sched_param 'param', its priority (i.e. param.sched_priority) is set.
+- three threads are created using 'pthread_create' sequencially and one count func is passed as argument to each.
+- once the three threads are created, 'pthread_join' is used to wait for them to complete their executions.
