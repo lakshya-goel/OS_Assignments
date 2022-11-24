@@ -20,7 +20,7 @@ code used:
 The syscall is tested via a test file: test.c
 The code of the tester file is also attached.
 
-The diff is used to form two patch files( sys_c_file.patch and syscall_tbl.patch )
+The diff is used to form two patch files( sys_c.patch and syscall_64_tbl.patch )
 Code used:
 # mkdir old_kernel
 # cp -a old_kernel
