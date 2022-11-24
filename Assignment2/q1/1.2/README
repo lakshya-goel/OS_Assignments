@@ -1,0 +1,10 @@
+For ques 1.2, the following details briefly describe the code submitted:
+
+- 'struct timespec' used to get time using 'clock_gettime()'
+- a function 'sub_timespec()' used to get the result of different of two timespec objects
+- two funcs 'genProcess' and 'waitProcess' are used to fork a new child process and wait for a child process.
+ 
+- fork is used to create a child process and 'execlp' of execl family is used to execute it.
+- The bash file name and time taken by the created child process is displayed by the waitProcess func.
+
+- Three files - 'first.sh', 'second.sh' and 'third.sh' are executed in the created processes.
