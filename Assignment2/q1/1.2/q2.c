@@ -52,7 +52,7 @@ void waitProcess(struct timespec f, pid_t * processes, char** file,struct timesp
     {	
         if(id==processes[i]){
             sub_timespec(s[i],f,&tm);
-            printf("File: %s Time: %ld.%ld\n",file[i],tm.tv_sec,tm.tv_nsec);
+            printf("File: %s Time: %ld.%.9ld\n",file[i],(tm.tv_sec)/1000000000,tm.tv_nsec);
         }
     }
 }
