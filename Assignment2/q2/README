@@ -1,0 +1,21 @@
+Description of the program logic:
+
+First a new syscall entry is added to : syscall_64.tbl
+# 451 kernel_2D_memcpy sys_kernel_2D_memcpy
+
+then, the required syscall to copy a 2D matrix is implemented in: sys.c
+The code of implemented syscall is attached.
+
+After that, a fresh kernel is compiled to reflect the new set of syscalls.
+code used:
+# make
+# make modules
+# make modules_install
+# make bzImage
+# cp -v arch/x86/boot/bzImage /boot/vmlinuz-linuxAB
+# cp /etc/mkinitcpio.d/linux.preset /etc/mkinitcpio.d/linuxAB.preset
+# nano /etc/mkinitcpio.d/linuxAB.preset
+# # mkinitcpio -p linuxAB
+
+The syscall is tested via a test file: test.c
+The code of the tester file is also attached.
