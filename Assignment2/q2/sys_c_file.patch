@@ -1,0 +1,23 @@
+--- linux-6.0.3/kernel/sys.c	2022-11-23 20:13:05.700009921 +0530
++++ old_kernel/linux-6.0.3/kernel/sys.c 2022-11-24 22:18:57.450002018 +0530
+@@ -207,20 +207,6 @@
+ 	return error;
+ }
+ 
+-SYSCALL_DEFINE3(kernel_2d_memcpy, float **, src, float **,dest, int, len)
+-{
+-	float mat[3][3];
+-	if(__copy_from_user(mat, src, sizeof(mat))
+-	{
+-		return -EFAULT;
+-	}
+-	if(__copy_to_user(dest, mat, sizeof(mat)))
+-	{
+-		return -EFAULT;
+-	}
+-	return 0;
+-}
+-
+ SYSCALL_DEFINE3(setpriority, int, which, int, who, int, niceval)
+ {
+ 	struct task_struct *g, *p;
