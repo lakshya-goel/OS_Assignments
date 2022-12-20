@@ -1,0 +1,5 @@
+We were required to write a linux kernel module.
+the module is written in task.c file.
+on using "make", the .ko file is generated from the makefile for the module
+this file is then inserted and tested using "insmod ./task.ko pid = num"
+and the output can be seen in the kernel log using "dmesg"
