@@ -1,1 +1,11 @@
-primitives used are semaphores.
+A_1:
+: no syncronizing primitives are used for the solution. Rather if else statements and variables acting as flags. Resources are shared and declared as global variables.
+
+A_2:
+: syncronizing primitives namely semaphores are used for all the forks. Hence a total of 5 semaphores are used which are each initiated and destroyed. Resources are shared via global declaration.
+
+B_1:
+: no syncronizing primitives are used for either forks or bowls. Rather if else statements and variables acting as flags. Resources are shared and declared as global variables. A lock free algorithm is provided as a solution.
+
+A_2:
+: syncronizing primitives namely semaphores are used for all the forks and bowls. Hence a total of 5+2 (=7) semaphores are used which are each initiated and destroyed. Resources are shared via global declaration.
