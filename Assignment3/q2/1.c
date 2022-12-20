@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define f "/tmp/myfifo"
-
 void genStrings(char strArr[50][5]){
     srand(time(NULL));
     for (int i = 0; i < 50; i++)
@@ -41,26 +39,27 @@ int main()
 {   
     char strArr[50][5] = {{0}};
     genStrings(strArr);
-    mkfifo(f,0666);
+    mkfifo("myfifo",0666);
     char str1[1000];
 	char toWrite[5][5];
     int index=0;
     int fd;
     while(index<50){
-        fd = open(f,O_WRONLY);
+        fd = open("myfifo",O_WRONLY);
         copy_strings(toWrite,strArr,index);
         for (int i = 0; i < 5; i++)
-        {
-            write(fd,toWrite[i],5);
+        {	
+		printf("%s\n",toWrite[i]);
+            write(fd,toWrite[i],6);
         }
         close(fd);
-        fd = open(f,O_RDONLY);
+        fd = open("myfifo",O_RDONLY);
         read(fd, str1,sizeof(str1));
         index = atoi(str1);
         printf("Last printed index: %d\n",index);
         index++;
         close(fd);
     }
-    unlink("/tmp/myfifo");
+    unlink("myfifo");
     return 0;
 }
