@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define f "/tmp/myfifo"
+
 void genStrings(char strArr[50][5]){
     srand(time(NULL));
     for (int i = 0; i < 50; i++)
@@ -31,7 +33,7 @@ void copy_strings(char dest[5][5], char src[50][5],int ind){
 	char buff[5];
 	for(int i=0;i<5;i++){
 		snprintf(buff, 5, "%s%d",src[ind+i], ind+i); // puts string into buffer
-      	strcpy(dest[i], buff);
+      		strcpy(dest[i], buff);
 	}
 }
 
@@ -39,21 +41,20 @@ int main()
 {   
     char strArr[50][5] = {{0}};
     genStrings(strArr);
-    mkfifo("/tmp/myfifo",0666);
+    mkfifo(f,0666);
     char str1[1000];
-	  char toWrite[5][5];
+	char toWrite[5][5];
     int index=0;
     int fd;
     while(index<50){
-        fd = open("/tmp/myfifo",O_WRONLY);
+        fd = open(f,O_WRONLY);
         copy_strings(toWrite,strArr,index);
-        printString(toWrite);
         for (int i = 0; i < 5; i++)
         {
             write(fd,toWrite[i],5);
         }
         close(fd);
-        fd = open("/tmp/myfifo",O_RDONLY);
+        fd = open(f,O_RDONLY);
         read(fd, str1,sizeof(str1));
         index = atoi(str1);
         printf("Last printed index: %d\n",index);
