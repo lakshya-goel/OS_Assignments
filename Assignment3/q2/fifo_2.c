@@ -69,5 +69,5 @@ int main() {
 	}
 	clock_gettime(CLOCK_REALTIME, &finish);
     sub_timespec(start, finish, &gap);
-    printf("Time taken: FIFO-1 - %ld.%ld\n", gap.tv_sec, gap.tv_nsec);
+    printf("Time taken: FIFO-2 - %ld.%ld\n", gap.tv_sec, gap.tv_nsec);
 }
