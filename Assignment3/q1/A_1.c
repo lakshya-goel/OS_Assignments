@@ -2,89 +2,23 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int philosophers[5] = {0,1,2,3,4};
-int counter[5][2] = {{0,0}}; //becomes one for whichever fork is picked up if both are picked up, both are one and the philosopher can eat
+#define first i%5
+#define second (i+2)%5
+
+int philosophers[5] = {1,2,3,4,5};
+int forks[5] = {0}; 
 
 
 void *philosopher(void *arg) {
   int id = *((int *)arg);
-  int eaten;
-
-  while (1) {
-    eaten =0;
-    if(counter[id][0]==0 && counter[id][1]==0){
-        printf("Philosopher %d is thinking\n", id+1);
-        sleep(1);
-    }
-    
-    if(counter[id][0]==0 && counter[(id>=1)?id-1:5][1]==0){
-        counter[id][0]=1;
-        printf("Philosopher %d picked up left fork\n", id+1);
-    }
-
-    if(counter[id][1]==0 && counter[(id+1)%5][0]==0){
-        counter[id][1]=1;
-        printf("Philosopher %d picked up right fork\n", id+1);
-    }
-    
-
-    if(counter[id][0]==1 && counter[id][1]==1){
-        printf("Philosopher %d is eating\n", id+1);
-        eaten =1;
-        sleep(1);
-    }
-    
-    if(eaten==1 && counter[id][0]==1){
-        counter[id][0]=0;
-        printf("Philosopher %d puts down left fork\n", id+1);
-    }
-    if(eaten==1 && counter[id][1]==1){
-        counter[id][1]=0;
-        printf("Philosopher %d puts down right fork\n", id+1);
-    }
-    
+  printf("Philosopher %d is thinking\n", id);
+  if(forks[id-1]==0 && forks[id%5]==0){
+    forks[id-1]=forks[id%5]=1;
+    printf("Philosopher %d is eating\n", id);
+    sleep(1);
   }
-
-  return NULL;
-}
-
-void *philosopher_last(void *arg) {
-  int id = *((int *)arg);
-  int eaten;
-
-  while (1) {
-    eaten = 0;
-    if(counter[id][0]==0 && counter[id][1]==0){
-        printf("Philosopher %d is thinking\n", id+1);
-        sleep(1);
-    }
-    
-    if(counter[id][1]==0 && counter[(id+1)%5][0]==0){
-        counter[id][1]=1;
-        printf("Philosopher %d picked up right fork\n", id+1);
-    }
-
-    if(counter[id][0]==0 && counter[(id>=1)?id-1:5][1]==0){
-        counter[id][0]=1;
-        printf("Philosopher %d picked up left fork\n", id+1);
-    }
-
-    if(counter[id][0]==1 && counter[id][1]==1){
-        printf("Philosopher %d is eating\n", id+1);
-        eaten =1;
-        sleep(1);
-    }
-    
-    if(eaten==1 && counter[id][1]==1){
-        counter[id][1]=0;
-        printf("Philosopher %d puts down right fork\n", id+1);
-    }
-
-    if(eaten==1 && counter[id][0]==1){
-        counter[id][0]=0;
-        printf("Philosopher %d puts down left fork\n", id+1);
-    }
-  }
+  forks[id-1]=forks[id%5]=0;
+  printf("Philosopher %d is thinking\n", id);
 
   return NULL;
 }
@@ -92,13 +26,13 @@ void *philosopher_last(void *arg) {
 int main(void) {
   pthread_t threads[5];
 
-  for (int i = 0; i < 4; i++) {
-    pthread_create(&threads[i], NULL, philosopher, &philosophers[i]);
-  }
-  pthread_create(&threads[4], NULL, philosopher_last, &philosophers[4]);
-
-  for (int i = 0; i < 5; i++) {
-    pthread_join(threads[i], NULL);
+  int i=0;
+  while(1){
+    pthread_create(&threads[first], NULL, philosopher, &philosophers[first]);
+    pthread_create(&threads[second], NULL, philosopher, &philosophers[second]);
+    pthread_join(threads[first], NULL);
+    pthread_join(threads[second], NULL);
+    i++;
   }
 
   return 0;
