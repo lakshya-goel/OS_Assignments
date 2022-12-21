@@ -1,9 +1,11 @@
-#include <linux/kernel.h>
-#include <linux/module.h>
-#include <linux/moduleparam.h>
 #include <linux/unistd.h>
 #include <linux/syscalls.h>
 #include <linux/sched.h>
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/moduleparam.h>
+
+MODULE_LICENSE("GPL");
 
 int pid = 0; 
 module_param(pid, int, 0);
@@ -27,4 +29,3 @@ static void __exit Bye(void) {
 
 module_init(Hello);
 module_exit(Bye);
-MODULE_LICENSE("GPL");
