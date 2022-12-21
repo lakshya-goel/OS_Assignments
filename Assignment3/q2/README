@@ -1,0 +1,3 @@
+The following quesion involved implementing the three IPC mechanisms.
+Fifo is implemented via 2 named pipes wherein one pipe sends string and the other pipe sends the highest index.
+Shared memory is implemented via using 
