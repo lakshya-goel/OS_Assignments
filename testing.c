@@ -28,13 +28,13 @@ static int __init paras_init(void)
 	printk("Looking up task_struct details for PID %d\n", pid);
 	if (task) {
 		printk("pid: %d\n",task->pid);
-		printk("user_id: %d\n",task->cred->uid);
-		printk("pgid: %d\n",current->cred->egid);
+		printk("user_id: %d\n",task->cred->uid.val);
+		printk("pgid: %d\n",task->group_leader->pid);
 		printk("command path: %d\n",task->comm);
 	}
 	else
 	{
-		printk("NO VALID FUNCTION\n")
+		printk("NO VALID FUNCTION\n");
 	}
 
 	return 0;
