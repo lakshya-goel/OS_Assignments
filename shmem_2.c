@@ -9,7 +9,7 @@
 #define TICK struct timespec
 #define SZE 1024
 
-#define PATH "ipc_shm_p1.c"
+#define PATH "shmem_1.c"
 
 int err;
 
