@@ -1,6 +1,6 @@
 The following quesion involved implementing the three IPC mechanisms.
 
-In both parts, first, the IPCs are initialised. On initialisation, there is an array containing 50 strings of length 4. This is randomly generated. There is a loop which finishes when all strings are transferred. 
+In all parts, first, the IPCs are initialised. On initialisation, there is an array containing 50 strings of length 4. This is randomly generated. There is a loop which finishes when all strings are transferred. 
 -> Inside the loop the FIFO is first opened as Write Only which writes a 2D array of 5 strings with their indices, then closed. It is then opened as Read Only which takes the max index received. On the other side, the FIFO is opened as Read only to read the strings, then as Write Only to send the Max index.
 -> In case of Socket, it is first initialised and then a similar flow is follows as in case of the FIFO
 Write(P1)-> Read(P2)->Write(P2)->Read(P1).
