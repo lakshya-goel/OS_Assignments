@@ -19,7 +19,7 @@ MODULE_DESCRIPTION( "The PID of the process whose task_struct details we want to
 static int pid = -1;
 struct task_struct *task;
 module_param(pid,int ,S_IRUGO);
-MODULE_PARM_DESC(pid,"The pid of task command line")
+MODULE_PARM_DESC(pid,"The pid of task command line");
 
 static int __init paras_init(void)
 {
@@ -27,10 +27,10 @@ static int __init paras_init(void)
 	
 	printk("Looking up task_struct details for PID %d\n", pid);
 	if (task) {
-		printk("%d :pid\n",task->pid);
-		printk("%d :user_id\n",task->cred->uid);
-		printk("%d :pgid\n",current->cred->egid);
-		printk("%s : command path\n",task->comm);
+		printk("pid: %d\n",task->pid);
+		printk("user_id: %d\n",task->cred->uid);
+		printk("pgid: %d\n",current->cred->egid);
+		printk("command path: %d\n",task->comm);
 	}
 	else
 	{
