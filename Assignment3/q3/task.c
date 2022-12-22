@@ -5,17 +5,19 @@
 #include <linux/module.h>
 #include <linux/moduleparam.h>
 
-MODULE_LICENSE("GPL");
-
 int pid = 0; 
 module_param(pid, int, 0);
+
 static int __init Hello(void) {
     struct task_struct *task;
     task = pid_task(find_vpid(pid), PIDTYPE_PID);
+    
     if (task == NULL) {
         printk(KERN_ERR "Invalid PID\n");
         return -EINVAL;
     }
+    
+    printk("Details for PID %d\n", pid);
     printk("PID %d\n", task->pid);
     printk("User ID %d\n", task->cred->uid.val);
     printk("Process Group ID %d\n", task->group_leader->pid);
@@ -29,3 +31,5 @@ static void __exit Bye(void) {
 
 module_init(Hello);
 module_exit(Bye);
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Lakshya Goel");
